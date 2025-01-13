@@ -1,86 +1,51 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Penjualan</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1>Data Penjualan</h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Kode Penjualan</th>
-                    <th>Tanggal</th>
-                    <th>Nama Pembeli</th>
-                    <th>No HP</th>
-                    <th>Total Harga</th>
-                    <th>Detail Penjualan</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($penjualans as $penjualan)
-                    <div>
-                        <h3>{{ $penjualan['nama_pembeli'] }}</h3>
-                        <p>No HP: {{ $penjualan['no_hp'] }}</p>
-                        <p>Total Harga: {{ $penjualan['total_harga'] }}</p>
-                        <p>Tanggal Penjualan: {{ $penjualan['tanggal'] }}</p>
-                        <h4>Detail Penjualan:</h4>
-                        <ul>
-                            @foreach ($penjualan['detail_penjualan'] as $detail)
-                                <li>{{ $detail['barang']['nama'] }} - {{ $detail['jumlah'] }} unit</li>
-                            @endforeach
-                        </ul>
-                </div>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</body>
-</html> --}}
+@extends('layout.master')
 
-<!doctype html>
-<html lang="en">
+@section('page')
+    Halaman Detail Penjualan
+@endsection
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Technical Test Farmagitech</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
-</head>
-
-<body class="bg-light">
-    <main class="container">
-        <!-- START DATA -->
-        <div class="my-3 p-3 bg-body rounded shadow-sm">
-            <a href="/penjualan" class="btn btn-warning mb-2">Kembali</a>
-            <div class="d-flex justify-content-center">
-                <h4 class="mb-4">Halaman Detail Penjualan</h4>
-            </div>
-            <h5>Atas nama : {{ $penjualans['nama_pembeli'] }}</h5>
-            <div class="row">
-                @foreach ($penjualans['detail_penjualan'] as $penjualan)
-                    <div class="col-sm-6 mb-2">
-                        <div class="card border-secondary">
-                            <div class="card-body">
-                                <h5 class="card-title">Nama barang : {{ $penjualan['barang']['nama'] }}</h5>
-                                <p class="card-text">Total pembelian : {{ $penjualan['jumlah'] }}</p>
-                                <p class="card-text font-weight-lighter">Harga : {{ $penjualan['harga'] }}</p>
-                            </div>
+@section('content')
+            <div class="my-3 p-3 bg-body rounded shadow-sm">
+                <a href="/penjualan" class="btn btn-info mb-2">Kembali</a>
+            <div class="col-md-12 my-4">
+                <div class="card">
+                  <div class="card-header pb-0 px-3">
+                    <h6 class="mb-0">Detail Information</h6>
+                  </div>
+                  <div class="card-body pt-4 p-3">
+                    <ul class="list-group">
+                      <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                        <div class="d-flex flex-column">
+                          <h6 class="mb-3 text-sm">{{ $penjualans['nama_pembeli'] }}</h6>
+                          <span class="mb-2 text-xs">Tanggal Penjualan: <span class="text-dark font-weight-bold ms-sm-2"></span> {{ $penjualans['tanggal'] }} </span>
+                          <span class="mb-2 text-xs">Kode Penjualan: <span class="text-dark ms-sm-2 font-weight-bold">{{ $penjualans['id'] }}</span></span>
                         </div>
-                    </div>                           
-                @endforeach
-            </div>
-        <!-- AKHIR DATA -->
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous">
-    </script>
-
-</body>
-
-</html>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                @foreach ($penjualans['detail_penjualan'] as $penjualan)
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card mb-3">
+                      <div class="card-header p-2 ps-3">
+                        <div class="d-flex justify-content-between">
+                          <div>
+                            <p class="text-sm mb-0 text-capitalize">{{ $penjualan['barang']['nama'] }}</p>
+                            <h4 class="mb-0">Rp. {{ $penjualan['harga'] }}</h4>
+                          </div>
+                          <div class="icon icon-md icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-lg">
+                            <i class="material-symbols-rounded opacity-10">weekend</i>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="dark horizontal my-0">
+                      <div class="card-footer p-2 ps-3">
+                        <p class="mb-0 text-sm"><span class="text-success font-weight-bolder">Total Item Penjualan : </span>{{ $penjualan['jumlah'] }}</p>
+                      </div>
+                    </div>
+                  </div>
+                @endforeach   
+              </div>
+@endsection
